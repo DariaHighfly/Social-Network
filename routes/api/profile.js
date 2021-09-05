@@ -3,7 +3,7 @@ const router = express.Router();
 const request = require('request');
 const config = require('config');
 const auth = require('../../middleware/auth');
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 
 const Profile = require('../../models/Profile');
 const User = require('../../models/User');
@@ -150,7 +150,7 @@ router.get('/user/:user_id', async (req, res) => {
 
         if (err.kind == 'ObjectId') {
             return res.status(400).json({ msg: 'Profile not found'});
-        } 
+        }
 
         res.status(500).send('Server Error');
     }
@@ -166,7 +166,7 @@ router.delete('/', auth, async (req, res) => {
         await Profile.findOneAndRemove({ user: req.user.id });
         //Remove user
         await User.findOneAndRemove({ _id: req.user.id });
-        
+
         res.json({ msg: 'Usee r deleted' });
     } catch(err) {
         console.error(err.message);
@@ -246,7 +246,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
         profile.experience.splice(removeIndex, 1);
 
         await profile.save();
-        
+
         res.json(profile);
     } catch(err) {
         console.error(err.message);
@@ -255,7 +255,7 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
 });
 
 
-// education 
+// education
 
 
 // @route   PUT api/profile/education
@@ -333,7 +333,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
         profile.education.splice(removeIndex, 1);
 
         await profile.save();
-        
+
         res.json(profile);
     } catch(err) {
         console.error(err.message);
