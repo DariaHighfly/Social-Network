@@ -32,7 +32,7 @@ Landing.PropType = {
 }
 
 const mapStateToProps = (state) => ({
-   isAuthenticated: state.user.isAuthenticated
+   isAuthenticated: state.user && state.user.isAuthenticated
 });
 
 export default connect(mapStateToProps)(Landing);
